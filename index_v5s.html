@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  	<script src="map_styles.js"></script>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 90%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+    </style>
+    <script>
+      	var NowDate=new Date();
+      	var time_h=NowDate.getHours();
+  	  
+      var mapOption = {
+          center: {lat: 22.725794, lng: 12.314665},//初始中心位置
+          zoom: 18,//地圖預設大小
+          mapTypeId: 'roadmap',
+          //切換地圖類型，範例：https://developers.google.com/maps/documentation/javascript/reference#MapTypeId
+          styles: brightstyle
+          //更改地圖樣式，刪除路明建築商店名稱
+      }
+      function cgt(){
+    	mapOption.styles = nightstyle;
+    	
+         map = new google.maps.Map(document.getElementById('map'), mapOption);
+        /*var marker = new google.maps.Marker({
+          position: {lat: 22.725794, lng: 120.314665},
+          map: map
+        });*/
+      }
+      //google map api 程式
+      function initMap() {
+      	//判斷時間改變styles
+      	if ((time_h > 6)&& (time_h <18)){
+      		mapOption.styles = brightstyle;//alert(time_h);
+      	}
+      	else{
+      		mapOption.styles = nightstyle;
+      	}
+      	//宣告地圖物件
+        var map = new google.maps.Map(document.getElementById('map'), mapOption);
+       	//宣告提示視窗
+        var infoWindow = new google.maps.InfoWindow({map: map});
+        //宣告標示群組
+        var labels = 'abcdefghijklmnopqrstuvwxyz';
+        var markers = locations.map(function(location, i) {
+          return new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+          });
+        });
+         var markerCluster = new MarkerClusterer(map, markers, 
+         	{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+         	gridSize: 70/*群集分隔線 數字越大格子越小*/}
+         	);
+        /*設定地圖標示_單一
+		var marker = new google.maps.Marker({
+          position: {lat: 22.726218, lng: 120.314348},
+          map: map
+        });*/
+        //自訂Icon開始
+          //圖例清單，圖片大小32*32
+          var icons = {
+          Food: {
+            name: 'Food',
+            icon: 'pic/Food.png'},
+          WC: {
+            name: 'WC',
+            icon: 'pic/WC.png'},
+          Station: {
+            name: 'Station',
+            icon: 'pic/Station.png'}
+        };
+         var features = [
+         {position: new google.maps.LatLng(22.726571, 120.312356),
+            type: 'Food'},
+         {position: new google.maps.LatLng(22.726098, 120.314314),
+            type: 'WC'},
+         {position: new google.maps.LatLng(22.725841, 120.313418),
+            type: 'Station'}
+         ];
+          // Create markers.
+        features.forEach(function(feature) {
+          var marker_selficon = new google.maps.Marker({
+            position: feature.position,
+            icon: icons[feature.type].icon,
+            map: map
+          });
+        });
+
+        /*沒有放範例
+        var legend = document.getElementById('legend');
+        for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          div.innerHTML = '<img src="' + icon + '"> ' + name;
+          legend.appendChild(div);
+          
+        }
+
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);*/
+        //自訂Icon結束
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          //navigator.geolocation.getCurrentPosition(function(position) {
+          	navigator.geolocation.watchPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('嗨嗨你在這.');
+	    //alert("update test");
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          },{timeout:5000});
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+      //群集標記的經緯度
+      	var locations = [
+      	{lat: 22.726218, lng: 120.314348},
+      	{lat: 22.725816, lng: 120.314060},
+      	{lat: 22.725415, lng: 120.314358},
+      	{lat: 22.726210, lng: 120.314948},
+      	{lat: 22.725818, lng: 120.315248},
+      	{lat: 22.725382, lng: 120.314937},
+      	]
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
+     
+    </script>
+    <!--群集標示api-->
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <!--googlemap api-->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlzGXLy7TzAdI3rJZp-oGYKJ2rEnArTRM&callback=initMap">
+    </script>
+  </head>
+  <body>
+  	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  	  <a class="navbar-brand" href="#">Navbar</a>
+  	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      	<span class="navbar-toggler-icon"></span>
+  	  </button>
+  	  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    	<ul class="navbar-nav">
+      	  <li class="nav-item">
+        	<a class="nav-link" href="second.php?str=work">send to php</a>
+      	  </li>
+      	  <li class="nav-item">
+        	<a class="nav-link" href="second.html?str=work">send to html</a>
+      	  </li>
+      	  <li class="nav-item">
+        	<a class="nav-link" href="#" onclick="cgt()">change map style</a>
+      	  </li>    
+    	</ul>
+  	  </div>  
+	</nav>
+    <div id="map"></div>
+   
+  </body>
+</html>
+<!--key=AIzaSyAlzGXLy7TzAdI3rJZp-oGYKJ2rEnArTRM-->
