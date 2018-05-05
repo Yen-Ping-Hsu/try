@@ -1,0 +1,27 @@
+/*google-map*/
+      #map {
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+        height: 90%;
+/* Optional: Makes the sample page fill the window. */
+      }
+      
+
+/*element*/
+html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+/*.class*/
+      .menu_btn{
+        box-shadow:1px 1px 2px 2px #cccccc;
+      }
+/*#id*/
+      #menu {
+        position: fixed;
+        top:20%;
+        right:3px;
+        text-align: right;
+      }
+      

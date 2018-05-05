@@ -4,25 +4,16 @@
     <title>Geolocation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta charset="utf-8">
+    <!--Google.icon from https://www.w3schools.com/icons/icons_reference.asp-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Font Awesome.icon from https://www.w3schools.com/icons/icons_reference.asp-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   	<script src="map_styles.js"></script>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 90%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-
-    </style>
+    <link href="style.css" rel="stylesheet" type="text/css"> 
     <script>
       	var NowDate=new Date();
       	var time_h=NowDate.getHours();
@@ -168,7 +159,7 @@
   </head>
   <body>
   	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
-  	  <a class="navbar-brand" href="#">Navbar</a>
+  	  <a class="navbar-brand" href="#">user_name</a>
   	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       	<span class="navbar-toggler-icon"></span>
   	  </button>
@@ -187,7 +178,10 @@
   	  </div>  
 	</nav>
     <div id="map"></div>
-   
+    <div id="menu">
+      <div><a href="#"><i class="fa fa-list-ul" style="font-size:24px"></i></a></div>
+      <div><a href="#"><i class="material-icons" style="font-size:24px">settings</i></a></div>
+    </div>
   </body>
 </html>
 <!--key=AIzaSyAlzGXLy7TzAdI3rJZp-oGYKJ2rEnArTRM-->
