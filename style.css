@@ -26,6 +26,9 @@ html, body {
         left:1%;
         background-color:#dddddd;
       }
+      #info div{
+        top:10%;
+      }
       #menu {
         position: fixed;
         top:20%;
