@@ -41,15 +41,6 @@
       }
       //google map api 程式
       function initMap() {
-        var imageBounds = {
-    north: 12.314665,
-    south: 13.314665,
-    east:  22.725794,
-    west:  23.725794
-  };
-
-  var historicalOverlay = new google.maps.GroundOverlay('https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg',imageBounds);
-  historicalOverlay.setMap(map);
       	//判斷時間改變styles
       	if ((time_h > 6)&& (time_h <18)){
       		mapOption.styles = brightstyle;//alert(time_h);
