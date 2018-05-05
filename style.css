@@ -19,10 +19,12 @@ html, body {
       }
 /*#id*/
       #info {
+        height:10%;
         position: fixed;
         top:0%;
         right:1%;
         left:1%;
+        background-color:#dddddd;
       }
       #menu {
         position: fixed;
