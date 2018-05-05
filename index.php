@@ -128,15 +128,18 @@
     <div id="map"></div>
     <div id="info" class="row">
       <div class="col-2" style="text-align:left;">
-          <i class="fa fa-user" style="font-size:36px"></i>
+          <img src="pic/male.png">
       </div>
       <div class="col-3" style="text-align:left;">Name</div>
-      <div class="col-4" style="text-align:left;">
-          <p style="font-size:24px">point 37</p><!--來源要改用抓的資料-->
+      <div class="col-2" style="text-align:right;">
+          <img src="pic/points.png">
+      </div>
+      <div class="col-2" style="text-align:left;">
+        <p style="font-size:24px">37</p><!--來源要改用抓的資料-->
       </div>
       <div class="col-3" style="text-align:right;">
-          <a href="#"><i class="material-icons" style="font-size:32px">list</i></a>
-          <a href="#"><i class="material-icons" style="font-size:32px">settings</i></a>
+          <a href="#"><img src="pic/menu.png"></a>
+          <a href="#"><img src="pic/settings.png"></a>
       </div>
     </div>
     <!--<div id="user_point">
