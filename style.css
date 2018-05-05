@@ -24,4 +24,13 @@ html, body {
         right:2%;
         text-align: right;
       }
+      #info{
+        position: fixed;
+        top:20%;
+        left:2%;
+        text-align: left;
+      }
+      #info p{
+        text-shadow:1px 1px #DDDDDD;
+      }
       
