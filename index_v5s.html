@@ -61,6 +61,12 @@
         var map = new google.maps.Map(document.getElementById('map'), mapOption);
        	//宣告提示視窗
         var infoWindow = new google.maps.InfoWindow({map: map});
+        //使用者位子的標記
+        var user_location = new google.maps.Marker({
+          position: {lat: 22.726218, lng: 120.314348},
+          icon:'pic/Food.png',
+          map: map
+        });
         //宣告標示群組
         var labels = ["1","2","3","4"];
         var markers = locations.map(function(location, i) {
@@ -73,11 +79,6 @@
          	{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
          	gridSize: 70/*群集分隔線 數字越大格子越小*/}
          	);
-        //使用者位子的標記
-		    var user_location = new google.maps.Marker({
-          position: {lat: 22.726218, lng: 120.314348},
-          map: map
-        });
         //自訂Icon開始
           //圖例清單，圖片大小32*32
           var icons = {
