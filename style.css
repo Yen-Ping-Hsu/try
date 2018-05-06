@@ -19,7 +19,7 @@ html, body {
       }
 /*#id*/
       #info {
-        height:6%;
+        height:40px;
         position: fixed;
         top:0%;
         right:1%;
