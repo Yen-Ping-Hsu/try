@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta charset="utf-8">
+    <!--Google.icon from https://www.w3schools.com/icons/icons_reference.asp-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Font Awesome.icon from https://www.w3schools.com/icons/icons_reference.asp-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  	<script src="map_styles.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css"> 
+    <script >
+      var NowDate=new Date();
+      var time_h=NowDate.getHours();
+      var mapOption = {
+          center: {lat: 22.725794, lng: 12.314665},//初始中心位置
+          zoom: 18,//地圖預設大小
+          mapTypeId: 'roadmap',
+          //切換地圖類型，範例：https://developers.google.com/maps/documentation/javascript/reference#MapTypeId
+          styles: nightstyle,
+          //更改地圖樣式，刪除路明建築商店名稱
+          disableDefaultUI: true,
+          //關掉預設控制選項，放大縮小街景衛星balabala
+          //MotionTrackingControl: true,//回到裝置位子功能，但她不能用先放著
+          
+      }
+      //google map api 程式
+      function initMap() {
+        //判斷時間改變styles
+        /*if ((time_h > 6)&& (time_h <18)){
+          mapOption.styles = brightstyle;//alert(time_h);
+        }
+        else{
+          mapOption.styles = nightstyle;
+        }*/
+        //宣告地圖物件
+        var map = new google.maps.Map(document.getElementById('map'), mapOption);
+        //宣告提示視窗
+        var infoWindow = new google.maps.InfoWindow({map: map});
+        //使用者位子的標記
+        var user_location = new google.maps.Marker({
+          position: {lat: 22.726218, lng: 120.314348},
+          icon:'pic/jogging.png',
+          map: map
+        });
+        //宣告標記群組，任務地點用
+        var labels = ["1","2","3","4"];
+        var markers = locations.map(function(location, i) {
+          return new google.maps.Marker({
+            position: location,
+            icon:'pic/carrot.png',
+            label: labels[i % labels.length]
+          });
+        });
+         var markerCluster = new MarkerClusterer(map, markers, 
+          {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+          gridSize: 70/*群集分隔線 數字越大格子越小*/}
+          );
+        //宣告自訂標記，P:經緯度，I:圖片
+         var features = [
+         {position: new google.maps.LatLng(22.726571, 120.312356),
+            icon: 'pic/Food.png'},
+         {position: new google.maps.LatLng(22.726098, 120.314314),
+            icon: 'pic/WC.png'},
+         {position: new google.maps.LatLng(22.725841, 120.313418),
+            icon: 'pic/Station.png'}
+         ];
+          // 把自訂標記放到地圖.
+        features.forEach(function(feature) {
+          var marker_selficon = new google.maps.Marker({
+            position: feature.position,
+            icon: feature.icon,
+            map: map
+          });
+        });
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          //navigator.geolocation.getCurrentPosition(function(position) {
+            navigator.geolocation.watchPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            user_location.setPosition(pos);//設定使用者標記的位子，隨watchposition更新
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('嗨嗨你在這.');
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          },{timeout:1000});
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+      //群集標記的經緯度
+        var locations = [
+        {lat: 22.726218, lng: 120.314348},
+        {lat: 22.725816, lng: 120.314060},
+        {lat: 22.725415, lng: 120.314358},
+        {lat: 22.726210, lng: 120.314948},
+        {lat: 22.725818, lng: 120.315248},
+        {lat: 22.725382, lng: 120.314937},
+        ]
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
+    </script>
+    <!--載入標記群組.js程式庫-->
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <!--googlemap api-->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlzGXLy7TzAdI3rJZp-oGYKJ2rEnArTRM&callback=initMap">
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="info" class="row">
+      <div class="col-2" style="text-align:left;">
+          <img src="pic/male.png">
+      </div>
+      <div class="col-3" style="text-align:left;">Name</div>
+      <div class="col-2" style="text-align:right;">
+          <img src="pic/points.png">
+      </div>
+      <div class="col-2" style="text-align:left;">
+        <p style="font-size:24px">37</p><!--來源要改用抓的資料-->
+      </div>
+      <div class="col-3" style="text-align:right;">
+          <a data-toggle="modal" href="#list"><img src="pic/list.png"></a>
+          <a data-toggle="modal" href="#settings"><img src="pic/settings.png"></a>
+      </div>
+    </div>
+    <!--<div id="user_point">
+      <div><i class="" style="font-size:32px">point</i></div>
+      <div><p style="font-size:32px">37</p></div>來源要改用抓的資料-->
+    <!--</div>
+    <div id="menu">
+      <div><a href="#"><i class="fa fa-list-ul" style="font-size:32px"></i></a></div>
+      <div><a href="#"><i class="material-icons" style="font-size:32px">settings</i></div>
+    </div>-->
+    <!-- The Modal list-->
+      <div class="modal fade" id="list">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">選單</h4>
+              <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+        
+            <!-- Modal body -->
+            <div class="modal-body">
+              Modal body..
+            </div>
+        
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+  </body>
+</html>
+<!--key=AIzaSyAlzGXLy7TzAdI3rJZp-oGYKJ2rEnArTRM-->
