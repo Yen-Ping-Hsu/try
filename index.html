@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Geolocation</title>
+    <title>XIAZI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta charset="utf-8">
     <!--Google.icon from https://www.w3schools.com/icons/icons_reference.asp-->
@@ -29,27 +29,19 @@
       <div class="col-2" style="text-align:left;">
           <img src="pic/male.png">
       </div>
-      <div class="col-3" style="text-align:left;">Name</div>
+      <div class="col-3" style="text-align:left;">N等資料</div>
       <div class="col-2" style="text-align:right;">
           <img src="pic/points.png">
       </div>
       <div class="col-2" style="text-align:left;">
-        <p style="font-size:24px">37</p><!--來源要改用抓的資料-->
+        <p style="font-size:24px">等資料</p><!--來源要改用抓的資料-->
       </div>
       <div class="col-3" style="text-align:right;">
           <a data-toggle="modal" href="#list"><img src="pic/list.png"></a>
           <a data-toggle="modal" href="#settings"><img src="pic/settings.png"></a>
       </div>
     </div>
-    <!--<div id="user_point">
-      <div><i class="" style="font-size:32px">point</i></div>
-      <div><p style="font-size:32px">37</p></div>來源要改用抓的資料-->
-    <!--</div>
-    <div id="menu">
-      <div><a href="#"><i class="fa fa-list-ul" style="font-size:32px"></i></a></div>
-      <div><a href="#"><i class="material-icons" style="font-size:32px">settings</i></div>
-    </div>-->
-    <!-- The Modal -->
+    <!-- The Modal list-->
       <div class="modal fade" id="list">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -61,8 +53,76 @@
             </div>
         
             <!-- Modal body -->
-            <div class="modal-body">
-              Modal body..
+            <div class="modal-body list_body">
+              <div class="row">
+                <div class="col-6 list_col">
+                  <button>商城</button>
+                </div>
+                <div class="col-6 list_col">
+                  <button>任務清單</button>
+                </div>
+                <div class="col-6 list_col">
+                  <button>優惠資訊</button>
+                </div>
+                <div class="col-6 list_col">
+                  <button>排程</button>
+                </div>
+              </div>
+            </div>
+        
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+    <!-- The Modal settings-->
+      <div class="modal fade" id="settings">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">設定</h4>
+              <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+        
+            <!-- Modal body -->
+            <div class="modal-body list_body">
+              <div class="row">
+                <div class="col-4 list_col">
+                  音量
+                </div>
+                <div class="col-8 list_col">
+                  音量設定
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4 list_col">
+                  語言
+                </div>
+                <div class="col-8 list_col">
+                  語言設定
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-4 list_col">
+                  偏好選擇
+                </div>
+                <div class="col-12 list_col">
+                  chexbox
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 list_col">
+                  問題回報
+                </div>
+                <div class="col-6 list_col">
+                  聯絡我們
+                </div>
+              </div>
             </div>
         
             <!-- Modal footer -->
